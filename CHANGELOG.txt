@@ -1,0 +1,195 @@
+Cartoon Studio Pro 1.7.7 (characters continue from where they stopped)
+  * New option "Continue from last shot" (Shot Builder, under Keep my character placement, ON by default):
+    each shot starts every character where it ended in the previous shot, facing the way it was facing,
+    so a character that ran somewhere no longer jumps back to its start place on the next shot.
+    The first shot a character appears in still uses its own placement. Turn it OFF for the old behaviour.
+  * Inside one shot with several action ranges, each action starts where the one before it ended.
+  * A walk / run action range that goes to a new place now turns the character towards that place
+    (before, only a walk in the first action range turned).
+  * Cameras now frame a character's whole path in a shot with several action ranges.
+
+Cartoon Studio Pro 1.7.6 (characters keep the position, rotation and scale you set)
+  * The black plus-sign "root" empty now sits ON the character (at its origin) instead of at the world
+    origin, and the character is parented to it without moving. Moving / rotating / scaling the plus
+    sign moves / turns / scales that one character around its own pivot.
+  * New option "Keep my character placement" (Shot Builder, above Build Episode, ON by default):
+    every shot starts with each character exactly where, how big and how turned you placed it.
+    Standing characters are not turned; walkers walk the way they face. Turn it OFF to use the
+    X / Depth boxes of each shot (they are now real world positions, no longer added on top of the
+    character's own offset).
+  * Build Episode no longer touches character scale. Old generated roots (which sat at the world origin
+    and could scale / tilt characters around it) are reset and re-anchored on the first build.
+  * Fixed hand-edit detection on rebuild: it now compares with what the build keyed at the SAME frame,
+    so building from any frame no longer adds phantom offsets, turns or tilts.
+  * Duplicated / copied rigs that shared one root now get their own root each.
+  * Camera aim-point empties are hidden in the viewport (they still drive the cameras).
+
+Cartoon Studio Pro 1.7.5 (preserve artist transforms on rebuild)
+  * Saves the character root transform baseline after building and reapplies manual location and rotation changes on rebuild.
+  * Preserves manually adjusted character root scale across rebuilds.
+  * Keeps artist offsets separate from generated shot/action travel.
+
+Cartoon Studio Pro 1.7.4 (automatic action-to-action travel)
+  * Walk/run action ranges now advance the character during their own frame ranges.
+  * Following action ranges inherit the destination, so the next action begins where travel ended.
+  * Detected root-motion actions carry their measured travel into the next action position.
+
+Cartoon Studio Pro 1.7.3 (per-action character placement)
+  * Added an optional world-position target (X/Y/Z) to every action range.
+  * Character movement is keyed from the previous action position to the selected action destination.
+  * Existing action ranges keep their prior behavior until Position is enabled.
+
+Cartoon Studio Pro 1.7.2 (Ollama timeout and fallback repair)
+  * Disables extended reasoning for local Ollama JSON tasks to reduce CPU generation stalls.
+  * Adds an adjustable 30-900 second Ollama timeout (default 300 seconds).
+  * Makes one-click production fall back to the built-in paragraph splitter if Ollama is slow or unavailable.
+  * Reduces the story breakdown output budget while retaining up to 24 editable shots.
+
+Cartoon Studio Pro 1.7.1 (Blender 4.2 compatibility and asset recovery)
+  * Guarded the bundled vehicle frame-change handler when a scene has no rigid-body world, so quality checks can sample frames without throwing 12 handler errors.
+  * Packed embedded GLB/GLTF textures on import so they survive temporary importer folders and Blender restarts.
+  * Kept camera occlusion ray casts compatible with Blender 4.2's keyword-only distance parameter.
+  * Grouped missing texture paths into non-blocking warnings so a preview can still render while the artist relinks those source files.
+
+Cartoon Studio Pro 1.7.0 (AI production, procedural worlds and shot-aware VFX)
+  * Added a .txt story file picker and loader that creates the editable Blender Text block automatically.
+  * Added local Ollama story breakdown into editable shots with speaker, action, emotion, location and prop notes.
+  * One-click production can use the AI breakdown and falls back to the built-in script splitter if Ollama is unavailable.
+  * Added editable procedural ground and road layouts, world mood presets, fog, and saved-asset placement with spacing and road clearance.
+  * Added frame-timed VFX events attached to a selected character with editable duration, offsets and scale.
+  * Expanded readiness checks for missing linked files, image textures, asset/VFX sources, action-range conflicts and camera framing/occlusion.
+  * Kept one-click preview/final rendering and the prepare-review-manually workflow available from the main panel.
+
+Cartoon Studio Pro 1.6.1 (Ollama-ready build)
+  * Uses the detected local qwen3-vl:4b model as the default camera planner.
+  * Enables local AI camera planning by default for new scenes.
+  * If the local model cannot answer, the built-in planner is used for the rest of the episode.
+
+Cartoon Studio Pro 1.6.0 (cinematography, VFX and mouth animation)
+  * Auto shots now cut between multiple camera angles inside one shot.
+  * Added an optional local Ollama shot planner with built-in camera planning as fallback.
+  * Added a reusable action-matched VFX library with hand/head/root attachment and editable offsets.
+  * Added rectangle-mouth shape-key creation from selected mesh vertices and open/close frame cycling.
+  * Existing dialogue-text mouth motion remains available without audio input.
+
+Cartoon Studio Pro 1.5.1 (action timeline and camera reframing)
+  * Added multiple frame-ranged actions per character in each shot.
+  * Added action-boundary camera reframing with automatic camera planning.
+  * Existing single-action shot fields remain the full-shot fallback.
+  * Action ranges use inclusive, shot-local frame numbers and are clipped to shot duration.
+
+Cartoon Studio Pro 1.5.0 (advanced production suite)
+  * Bundled the local RBC 1.2.4 path-follow build with multi-rig and keyboard driving.
+  * Added configurable cut/crossfade transitions in episode export.
+  * Added a scene asset library, manual placement, repeatable scatter, and image reference boards.
+  * Added text-driven mouth keyframing for existing compatible mouth shape keys; no audio input.
+  * Added a hybrid prepare-and-review workflow alongside the existing full automation.
+  * Image-guided environment tools create editable guides and asset layouts; one image does not
+    reconstruct exact hidden 3D geometry.
+
+Cartoon Studio Pro 1.3.3 (rigging improvement)
+  * Improved fallback skinning: bone-distance weights are gently smoothed across connected mesh edges,
+    keeping separated mesh parts independent and limiting each vertex to four bone influences.
+  * Blender automatic weights and the existing manual rig-marker workflow are unchanged.
+
+Cartoon Studio Pro 1.3.1  (from 1.3.0)
+  * Fixed: "'NoneType' object has no attribute 'select_set'" when pressing Add Rig Markers (and the same risk in
+    Build Skeleton / skinning). Deselecting objects is now safe right after objects were deleted or created.
+
+Cartoon Studio Pro 1.3.0  (from 1.2.1)  - RIG MARKERS (like Mixamo's auto-rigger)
+
+NEW: place the joints yourself with small circles
+  Character Library > "Fit a skeleton with markers":
+    1. Select the character mesh (T-pose, arms out, facing the front) > "1. Add Rig Markers".
+       15 coloured circles appear, already placed by the automatic guess, and the view switches to FRONT:
+       Head Top, Chin, Neck Base, Shoulder L/R, Elbow L/R, Wrist L/R, Pelvis, Groin, Knee L/R, Ankle L/R.
+    2. Drag each circle onto its joint (G key or move tool). They only move left/right and up/down.
+       "Mirror Left to Right" copies one side onto the other.
+    3. "2. Build Skeleton From Markers" builds the Mixamo-named skeleton so its joints sit exactly on your
+       circles, skins the mesh (smooth weights) and adds the character to the library.
+  Hands and feet follow the length of the arm / leg you marked. Feet are kept on the floor.
+  Needs one Mixamo animation .fbx imported first (that is where the skeleton shape comes from).
+  Do NOT use Blender's Rigify "metarig": its bone names are different, Mixamo animations cannot drive it.
+
+Cartoon Studio Pro 1.2.1  (from 1.2.0)  - RIGGING FIXES
+
+SKIN WEIGHTS - joints no longer tear
+  * Old fallback gave every vertex to ONE nearest bone (100%), so arms, sleeves and hands stretched and
+    separated. Now every vertex gets smooth weights from its nearest 1-3 bones (new file rigfit.py).
+  * Finger / toe / eye bones no longer take weight when skinning by distance, so a mitten hand or round
+    foot moves as one piece with its hand/foot bone.
+  * Blender's automatic weights are still tried first. A mesh where they failed (or covered less than
+    80% of its vertices) gets the blended weights. Stray vertices left without weight are fixed one by one
+    (before, a half-failed skin counted as success and those vertices stayed behind).
+  * Messages now say "smooth", "smooth (N stray vertices fixed)" or "blended" weights.
+
+SKELETON FITS THE BODY
+  * The built-in skeleton used to be a human template just scaled to the model's height. It now measures
+    the mesh surface and moves the hips, neck and leg spacing to where THIS body has them, so big-head /
+    short-leg cartoon characters line up. If it cannot detect them reliably it keeps average human
+    proportions and says so in the message.
+
+BUG FIXED: duplicate operators
+  * characters.py contained two copies of "Add Characters" and "Add Skeleton To Selected Mesh". The older
+    copies came later in the file and overrode the new ones, so the T-pose / A-pose skeleton button never
+    ran (it asked for a Rig Template file instead). The old copies are removed.
+
+ANIMATION LIBRARY
+  * "Register Actions in This File" now also remembers the skeleton shape from an armature in the scene
+    (before only importing an animation file did), so rig-less characters can still get a skeleton.
+
+NOT CHANGED: Mixamo "Hips" movement is not rescaled to the character's size. If a big movement
+(flip, jump) throws the body too far, tell me and this can be added.
+
+INSTALL: remove the old Cartoon Studio Pro add-on, restart Blender, Edit > Preferences > Add-ons >
+Install from Disk > CartoonStudioPro_v1_2_1.zip. Then: import ONE Mixamo animation .fbx first, then add
+characters. Old characters keep their old skin: remove them and add them again.
+
+----------------------------------------------------------------------------------------------------
+
+Cartoon Studio Pro 1.2.0  (from 1.1.3)
+
+CHARACTER LIBRARY - accepts every model now
+  * No more rejection for "not a T-pose" / "no skeleton" / "not skinned".
+  * Skeleton + skinned, any pose ........ accepted (a note is logged if the pose is not a T-pose)
+  * Skeleton, mesh not attached ......... mesh is skinned to the skeleton automatically
+  * Mesh with no skeleton ............... auto-rigged with the Rig Template if one is set,
+                                          otherwise kept as a one-piece character (placed, moved, filmed)
+  * Wrong size / wrong direction ........ scaled to "Character height", "Model faces" turns it to the camera
+  * Select SEVERAL files at once in Add Characters.
+  * Animations with different bone names (mixamorig: / mixamorig1: / none / Arm.L ...) are re-mapped automatically.
+  * Fixed: zip characters were never packed when extracted to a temp folder.
+
+TWO SHOTS FREEZING - fixed
+  * Cause: every shot added a new NLA track whose strip held its first/last pose outside its own frames,
+    so the newest track froze every shot before it.
+  * Now: one track per character, strips never overlap and never hold.
+
+SHOT TIMELINE
+  * Shots follow each other: shot 1 = frames 1-100, shot 2 = 101-200 ... (default length 100).
+  * Frame range is shown in the shot list and in the shot box (live, before building).
+  * New buttons: Go To Shot, Play Shot, Play All.
+
+MORE CHARACTERS
+  * Character A, B and unlimited extra characters per shot, each with X (left/right) and Depth.
+  * "Characters per shot (auto)" for Story to Shots, "Spread Evenly" for any shot.
+
+CAMERA - planned from the action
+  * New default "Auto (follows the action)": walking/running -> tracking shot that travels with the
+    character; jump -> low angle with tall frame; fight/dance -> slow orbit; talking alone -> medium
+    close-up with push-in; two people -> establishing two-shot, then over-the-shoulder / reverse shots;
+    3+ people -> group shot with everybody framed; sad = slightly high, angry = slightly low;
+    first shot = establishing wide, last shot = slow pull-out; the same camera is never used twice in a row.
+  * Framing is calculated from lens, aspect ratio and character height, so nobody is cut off.
+  * Camera moves during the shot (push-in, tracking, orbit). The plan is shown under the Camera menu.
+  * Manual types still exist: Wide, Full body, Medium, Close-up, Over shoulder, Two-shot, Low, High, Tracking, Orbit.
+
+MOVEMENT
+  * Walk / run animations that stay in place now travel across the scene and turn the way they go
+    (toward the other character when there is one). Set "Walk distance" to override.
+  * Standing characters turn partly toward each other.
+
+INSTALL: remove the old Cartoon Studio Pro add-on, restart Blender, then Edit > Preferences > Add-ons >
+Install from Disk > choose CartoonStudioPro_v1_2_0.zip. Blender 4.2 or newer.
+Old .blend files: press Build Episode once after updating.
+\n\n1.3.2 FIXED BUILD\n- Added explicit Clear buttons for Character and Animation Library active rows.\n- Added Save Rigged Character to Computer operator, saving character objects and armature to a standalone .blend file.\n- Kept original rigging and restore pipeline.\n

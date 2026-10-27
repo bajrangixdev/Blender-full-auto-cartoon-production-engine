@@ -1,0 +1,85 @@
+Cartoon Studio Pro 1.7.1 — Features and workflow
+================================================
+
+1.7.1 maintenance fixes
+- Safe frame sampling in Blender 4.2 when the scene has no rigid-body world.
+- GLB/GLTF imports pack embedded textures so temporary extraction folders can be removed safely.
+- Blender 4.2 camera ray casts use the required named distance argument.
+- Missing texture paths are grouped as actionable warnings so preview rendering can continue.
+
+WHAT THIS VERSION ADDS
+
+1. Local AI story breakdown
+   - Uses the Ollama model configured in Cartoon Studio to propose a shot list.
+   - Each shot has editable visual summary, dialogue, speaker, action notes, emotion,
+     location, props, cast, camera size, lighting and duration.
+   - Character names are matched against the add-on's Character Library.
+   - If Ollama is unavailable during one-click production, the existing blank-line
+     story splitter remains available as a fallback.
+
+2. Procedural world builder
+   - Builds a ground plane, central road, road markings and editable world lighting.
+   - Offers Forest, Village, Road and Open Land layouts; Daylight, Sunset, Night and
+     Fog mood settings.
+   - Can populate the world with saved tree and building assets from the scene Asset
+     Library. Placement uses repeatable randomness, road clearance and minimum spacing.
+   - Keeps a map or photo visible as a guide when one is selected.
+
+3. Exact-frame VFX events
+   - Save an effect model to the VFX Library, then add it to a selected shot at a
+     shot-local frame.
+   - Select the character to follow and adjust duration, scale and XYZ offsets.
+   - The effect uses its library attachment setting (automatic, root, hand or head).
+   - Existing action-name VFX matching remains available for broad automatic effects.
+
+4. Stronger readiness and camera inspection
+   - Reports missing character actions, asset/VFX source objects, linked Blender files,
+     image textures, subtitle fonts, audio files, render outputs and shot cameras.
+   - Detects overlapping or out-of-range action cues and missing timed VFX entries.
+   - Projects evaluated character bounds into each generated camera view and ray-checks
+     whether scene geometry blocks the subject; reports likely misses as warnings.
+   - One-click final production stops on blocking errors and leaves warnings visible.
+
+EXISTING FEATURES RETAINED
+
+- One-click preview and final episode production, plus a prepare/review/manual-edit mode.
+- Multiple characters and multiple action ranges per shot, with shot-local frame numbers.
+- Ollama camera suggestions with a built-in camera planner fallback and multiple views
+  within a shot.
+- Character and animation libraries, action retargeting by compatible bone names,
+  procedural walk movement for in-place clips, and editable camera/light choices.
+- Image-guided environments, saved asset and effect libraries, render queue, preview/final
+  settings, episode assembly, and the bundled RBC vehicle add-on source.
+- Text-driven open/close mouth keys and dialogue timing from text; this does not inspect
+  or analyze audio.
+
+QUICK START
+
+1. Install the ZIP using Blender: Edit > Preferences > Add-ons > Install from Disk.
+2. Enable Cartoon Studio Pro Advanced and open the 3D View sidebar with N > Cartoon Studio.
+3. Set a project folder; add characters and animations to their libraries.
+4. In Shot Builder, choose a .txt file and press Load .txt. Use AI Story Breakdown
+   for Ollama-generated editable shots, or Split Blank Lines for deterministic splitting.
+5. Review the cast, action ranges, location/prop notes, cameras, lighting and transitions.
+6. Optionally build a world and save models to the Asset Library; then create timed VFX
+   events in the Action VFX Library panel.
+7. Run Quality Check. Use Prepare Episode for Manual Review before rendering, or choose
+   One-click Preview / One-click Final Episode.
+
+IMPORTANT LIMITS
+
+- AI suggestions are editable starting points. Review dialogue, timing, cast, acting,
+  props and camera choices before final output.
+- The starter file First_Test_Cartoon_Story.txt is a short two-beat script for a first preview.
+- A map/photo is a visual guide; this procedural world builder does not reconstruct an
+  exact 3D world from a single image.
+- Timed VFX events attach to a character and frame. Automatic physical contact detection,
+  collision-triggered sound, simulation caching, rain/snow particle weather and vehicle
+  rerouting are not part of this version.
+- Mouth motion is text-timed open/close motion for compatible shape keys, not audio
+  phoneme recognition or generated speech.
+- Camera inspection checks rendered framing and ray visibility at sample frames. It
+  provides warnings; it does not make artistic camera changes automatically.
+
+Ollama settings are in the main Cartoon Studio panel. The default model is qwen3-vl:4b;
+use any model already installed in Ollama by changing the model name in the panel.
